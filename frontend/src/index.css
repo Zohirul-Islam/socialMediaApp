@@ -1,0 +1,6 @@
+@import "tailwindcss";
+
+/* Apply Outfit font globally */
+* {
+  font-family: "Outfit", sans-serif;
+}
