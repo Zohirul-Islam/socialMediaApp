@@ -3,6 +3,7 @@ import { dummyStoriesData } from "../assets/assets";
 import { Plus } from "lucide-react";
 import moment from "moment";
 import StoryModel from "./StoryModel";
+import Storyviewer from "./Storyviewer";
 
 const StoriesBar = () => {
   const [stories, setStoried] = useState([]);
@@ -33,6 +34,7 @@ const StoriesBar = () => {
         {/* list of story */}
         {stories.map((item, index) => (
           <div
+            onClick={()=>setViewStory(item)}
             key={index}
             className={`relative rounded-lg shadow min-w-30 max-w-30 max-h-40 cursor-pointer hover:shadow-lg transition-all duration-200 bg-gradient-to-b from-indigo-500 to-purple-600 hover:from-indigo-700 hover:to-purple-800 active:scale-95`}
           >
@@ -69,6 +71,10 @@ const StoriesBar = () => {
       {/* add story model */}
       {
         showModel && <StoryModel setShowModel={setShowModel} fetchStories={fetchStories}/>
+      }
+      {/* story view model */}
+      {
+        viewStory && <Storyviewer viewStory ={viewStory} setViewStory ={setViewStory}/>
       }
     </div>
   );
