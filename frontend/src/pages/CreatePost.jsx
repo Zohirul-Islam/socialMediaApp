@@ -1,13 +1,14 @@
 import React, { useState } from "react";
 import { dummyUserData } from "../assets/assets";
-import { Image,X } from "lucide-react";
-
+import { Image, X } from "lucide-react";
+import { toast } from "react-hot-toast";
 const CreatePost = () => {
   const [content, setContent] = useState("");
   const [images, setImages] = useState([]);
   const [loading, setLoading] = useState(false);
 
   const user = dummyUserData;
+  const handleSubmit = async () => {};
   return (
     <div className="min-h-screen bg-gradient-to-b from-slate-50 to-white">
       <div className="max-w-6xl mx-auto p-6">
@@ -49,7 +50,12 @@ const CreatePost = () => {
                     src={URL.createObjectURL(image)}
                     alt=""
                   />
-                  <div onClick={()=>setImages(images.filter((_,index)=>index !== i))} className="absolute hidden group-hover:flex justify-center items-center top-0 left-0 right-0 bottom-0 bg-black/40 rounded-md cursor-pointer">
+                  <div
+                    onClick={() =>
+                      setImages(images.filter((_, index) => index !== i))
+                    }
+                    className="absolute hidden group-hover:flex justify-center items-center top-0 left-0 right-0 bottom-0 bg-black/40 rounded-md cursor-pointer"
+                  >
                     <X className="h-6 w-6 text-white" />
                   </div>
                 </div>
@@ -58,11 +64,23 @@ const CreatePost = () => {
           )}
           {/* bottom bar */}
           <div className="flex items-center justify-between pt-3 border-t  border-gray-300">
-            <label htmlFor="images" className="flex items-center gap-2 text-sm text-gray-500 hover:text-gray-700 transition cursor-pointer">
-              <Image className="size-6"/>
+            <label
+              htmlFor="images"
+              className="flex items-center gap-2 text-sm text-gray-500 hover:text-gray-700 transition cursor-pointer"
+            >
+              <Image className="size-6" />
             </label>
-            <input type="file" id='images' accept="image/*" hidden multiple onChange={(e)=>setImages([...images,...e.target.files])} />
-            <button className="text-sm bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700 active:scale-95 transition text-white font-medium px-8 py-2 rounded-md cursor-pointer">Publish Post</button>
+            <input
+              type="file"
+              id="images"
+              accept="image/*"
+              hidden
+              multiple
+              onChange={(e) => setImages([...images, ...e.target.files])}
+            />
+            <button   onClick={()=>toast.promise(handleSubmit(),{loading:'uploading....',success:<p>Post Added</p>,error:<p>Post Added</p>})} className="text-sm bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700 active:scale-95 transition text-white font-medium px-8 py-2 rounded-md cursor-pointer">
+              Publish Post
+            </button>
           </div>
         </div>
       </div>
